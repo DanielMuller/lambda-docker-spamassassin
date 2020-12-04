@@ -101,6 +101,7 @@ FROM python-buster AS spamassassin-buster
   RUN su $USERNAME bash -c "\
     /usr/bin/sa-update && \
     /usr/bin/sa-update --nogpg --channel sa.zmi.at"
+  COPY local.cf /etc/spamassassin/
 
 FROM spamassassin-buster AS lambda-spamassassin
   ARG FUNCTION_DIR
