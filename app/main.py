@@ -24,7 +24,7 @@ def handler(event, context):
             m = re.match("(\w+), score=(\d+\.\d+) required=(\d+\.\d+) tests=([^\s]+)", status)
             if m:
                 groups = m.groups()
-                print(groups)
+                print('Matches:' + groups)
                 if groups[0] == 'Yes':
                     isSpam = True
                 score = float(groups[1])
@@ -37,9 +37,7 @@ def handler(event, context):
             'threshold': threshold,
             'tests': tests
         }
-        print(result)
     except:
         print("Error during execution. Returning default")
     finally:
-        print(result)
         return result
