@@ -18,7 +18,10 @@ def handler(event, context):
         data = email.message_from_file(f)
         f.close()
 
-        status = data.get('X-Spam-Status','').replace('\n', '').replace('\r', '').replace('\t', '')
+        status = data.get('X-Spam-Status','')
+        print('X-Spam-Status:' + status)
+        status = status.replace('\n', '').replace('\r', '').replace('\t', '').replace('autolearn', ' autolearn')
+        print('Cleaned X-Spam-Status:' + status)
 
         if status != '':
             m = re.match("(\w+), score=(\d+\.\d+) required=(\d+\.\d+) tests=([^\s]+)", status)
