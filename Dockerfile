@@ -33,23 +33,23 @@ FROM python-buster AS build-image
       libtool
 
 # Build DCC
-FROM build-image AS dcc-build-image
-  ARG DCC_VERSION
-  ARG DCC_SHA
-  ARG DCC_BUILD_DIR
-
-  # Distributed Checksum Clearinghouse - requires a source-compile
-  RUN cd /tmp && \
-      curl -sLo dcc.tar.Z https://www.dcc-servers.net/dcc/source/old/dcc-$DCC_VERSION.tar.Z && \
-      echo "$DCC_SHA  dcc.tar.Z" > checksums && \
-      sha256sum -c checksums && \
-      tar xzf dcc.tar.Z && \
-      cd /tmp/dcc-$DCC_VERSION && \
-      mkdir -p $DCC_BUILD_DIR && \
-      ./configure -with-installroot=$DCC_BUILD_DIR && \
-      make install && \
-      sed -i 's/DCCIFD_ENABLE=off/DCCIFD_ENABLE=on/' $DCC_BUILD_DIR/var/dcc/dcc_conf && \
-      chmod -R +rX $DCC_BUILD_DIR
+# FROM build-image AS dcc-build-image
+#   ARG DCC_VERSION
+#   ARG DCC_SHA
+#   ARG DCC_BUILD_DIR
+#
+#   # Distributed Checksum Clearinghouse - requires a source-compile
+#   RUN cd /tmp && \
+#       curl -sLo dcc.tar.Z https://www.dcc-servers.net/dcc/source/old/dcc-$DCC_VERSION.tar.Z && \
+#       echo "$DCC_SHA  dcc.tar.Z" > checksums && \
+#       sha256sum -c checksums && \
+#       tar xzf dcc.tar.Z && \
+#       cd /tmp/dcc-$DCC_VERSION && \
+#       mkdir -p $DCC_BUILD_DIR && \
+#       ./configure -with-installroot=$DCC_BUILD_DIR && \
+#       make install && \
+#       sed -i 's/DCCIFD_ENABLE=off/DCCIFD_ENABLE=on/' $DCC_BUILD_DIR/var/dcc/dcc_conf && \
+#       chmod -R +rX $DCC_BUILD_DIR
 
 FROM build-image as lambda-build-image
   ARG RIC_BUILD_DIR
