@@ -27,7 +27,7 @@ def handler(event, context):
             m = re.match("(\w+), score=(\d+\.\d+) required=(\d+\.\d+) tests=([^\s]+)", status)
             if m:
                 groups = m.groups()
-                print('Matches:' + groups)
+                print('Matches:' + str(groups))
                 if groups[0] == 'Yes':
                     isSpam = True
                 score = float(groups[1])
