@@ -41,6 +41,13 @@ def handler(event, context):
             'tests': tests
         }
     except:
+        result = {
+            'isSpam': False,
+            'score': -100,
+            'threshold': 100,
+            'tests': []
+        }
         print("Error during execution. Returning default")
     finally:
+        print(result)
         return result
